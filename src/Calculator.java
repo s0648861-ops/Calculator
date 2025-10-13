@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Calculator extends JFrame {
     private final JTextArea text = new JTextArea("...");
-    private int num1 = 0, result = 0;
-    private String l_operator;
+    private int num = 0, result = 0;
+    private String operator;
 
     public History history = new History();
 
@@ -24,7 +24,7 @@ public class Calculator extends JFrame {
 
     }
 
-    private void startup(){
+    private void startup() {
 
         setTitle("Cool Calculator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +84,7 @@ public class Calculator extends JFrame {
         setVisible(true);
     }
 
-    private JButton createButton(int i){
+    private JButton createButton(int i) {
         String y = String.valueOf(i);
         JButton button = new JButton(y);
         button.addActionListener(new numbers());
@@ -93,89 +93,92 @@ public class Calculator extends JFrame {
 
     }
 
-    private class numbers implements ActionListener{
+    private class numbers implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            num1 = Integer.parseInt(num1 + e.getActionCommand());
-            text.setText(String.valueOf(num1));
+            num = Integer.parseInt(num + e.getActionCommand());
+            text.setText(String.valueOf(num));
         }
 
     }
 
-    private class operators implements ActionListener{
+    private class operators implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            String operator = e.getActionCommand();
-            if (l_operator == null){
-                l_operator = operator;
-                result = num1;
-                num1 = 0;
-                text.setText(String.valueOf(0));
-                return;
-            }
-            if (l_operator.equals("+")){
-                history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 +  " = " + (result + num1));
-                result = num1 + result;
-                num1 = 0;
-                text.setText(String.valueOf(result));
-            }
-            else if (l_operator.equals("-")){
-                history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 +  " = " + (result - num1));
-                result = result - num1;
-                num1 = 0;
-                text.setText(String.valueOf(result));
-            }
-            else if (l_operator.equals("*")){
-                history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 +  " = " + result * num1);
-                result = num1 * result;
-                num1 = 0;
-                text.setText(String.valueOf(result));
-            }
-            else if (l_operator.equals("/")){
-                try {
-                    history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 + " = " + result / num1);
-                    result = result / num1;
-                    num1 = 0;
+            public void actionPerformed(ActionEvent e) {
+                if (operator == null) {
+                    operator = e.getActionCommand();
+                    result = num;
+                    num = 0;
+                    text.setText(String.valueOf(0));
+                    return;
+                }
+                if (e.getActionCommand().equals("=")) {
+                    switch (operator) {
+                        case "+" -> {
+                            history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result + num));
+                            result = num + result;
+                            num = 0;
+                            text.setText(String.valueOf(result));
+                            operator = "0";
+                        }
+                        case "-" -> {
+                            history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result - num));
+                            result = result - num;
+                            num = 0;
+                            text.setText(String.valueOf(result));
+                            operator = "0";
+                        }
+                        case "*" -> {
+                            history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result * num);
+                            result = num * result;
+                            num = 0;
+                            text.setText(String.valueOf(result));
+                            operator = "0";
+                        }
+                        case "/" -> {
+                            try {
+                                history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result / num);
+                                result = result / num;
+                                num = 0;
+                                text.setText(String.valueOf(result));
+                            } catch (ArithmeticException ae) {
+                                history.text.setText(history.text.getText() + "\n" + "cannot divide by zero");
+                            }
+                            operator = "0";
+                        }
+                    }
+                }
+                switch (operator) {
+                    case "+" -> {
+                    history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result + num));
+                    result = num + result;
+                    num = 0;
                     text.setText(String.valueOf(result));
-                }
-                catch (ArithmeticException ae) {
-                    history.text.setText(history.text.getText() + "\n" + "cannot divide by zero");
+                } case "-" -> {
+                    history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result - num));
+                    result = result - num;
+                    num = 0;
+                    text.setText(String.valueOf(result));
+                } case "*" -> {
+                    history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result * num);
+                    result = num * result;
+                    num = 0;
+                    text.setText(String.valueOf(result));
+                } case "/" -> {
+                    try {
+                        history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result / num);
+                        result = result / num;
+                        num = 0;
+                        text.setText(String.valueOf(result));
+                    } catch (ArithmeticException ae) {
+                        history.text.setText(history.text.getText() + "\n" + "cannot divide by zero");
+                    }
                 }
             }
-            else if (e.getActionCommand().equals("=")){
-                if (operator.equals("+")){
-                    history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 +  " = " + (result + num1));
-                    result = num1 + result;
-                    num1 = 0;
-                    text.setText(String.valueOf(result));
-                }
-                else if (operator.equals("-")){
-                    history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 +  " = " + (result - num1));
-                    result = result - num1;
-                    num1 = 0;
-                    text.setText(String.valueOf(result));
-                }
-                if (operator.equals("*")) {
-                    history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 + " = " + result * num1);
-                    result = num1 * result;
-                    num1 = 0;
-                }
-                text.setText(String.valueOf(result));
-                }
-                else if (operator.equals("/")){
-                    history.text.setText(history.text.getText() + "\n" + result + l_operator + num1 +  " = " + result / num1);
-                    result = result / num1;
-                    num1 = 0;
-                text.setText(String.valueOf(result));
-                }
-                l_operator = operator;
-            }
-
-
-
+            operator = e.getActionCommand();
         }
-
-
     }
+}
+
 
 
