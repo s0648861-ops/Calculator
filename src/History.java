@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class History extends JFrame {
     public JTextArea text = new JTextArea();
     private final JButton clear = new JButton("Clear history");
+    int A;
 
     public History() {
         startup();
@@ -35,7 +36,8 @@ public class History extends JFrame {
     private class Clear implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            text.setText("");
+            text.setText("History was cleared " + A + " times");
+            A++;
         }
     }
 

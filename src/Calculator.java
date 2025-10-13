@@ -120,7 +120,6 @@ public class Calculator extends JFrame {
             num = Integer.parseInt(num + e.getActionCommand());
             text.setText(String.valueOf(num));
         }
-
     }
 
     private class backspace implements ActionListener {
