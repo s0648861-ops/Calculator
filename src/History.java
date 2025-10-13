@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class History extends JFrame {
     public JTextArea text = new JTextArea();
     private final JButton clear = new JButton("Clear history");
-    int A;
+    int A = 1;
 
     public History() {
         startup();
