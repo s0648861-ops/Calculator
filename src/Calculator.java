@@ -28,7 +28,7 @@ public class Calculator extends JFrame {
 
         setTitle("Cool Calculator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(500, 150, 500, 500);
+        setBounds(500, 150, 360, 500);
         setIconImage(Toolkit.getDefaultToolkit().getImage(Calculator.class.getResource("/images/icon.png")));
 
         JPanel panel = new JPanel();
