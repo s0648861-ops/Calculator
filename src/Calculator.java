@@ -37,7 +37,7 @@ public class Calculator extends JFrame {
         text.setLineWrap(true);
         text.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         text.setFocusable(Boolean.FALSE);
-        text.setSize(450, 5);
+        text.setSize(335, 5);
         panel.add(text);
 
         JPanel panel1 = new JPanel();
