@@ -14,7 +14,7 @@ public class History extends JFrame {
 
     public void startup(){
         setTitle("History");
-        setBounds(870, 150, 222, 500);
+        setBounds(865, 150, 222, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(History.class.getResource("/images/icon_h.png")));
 
