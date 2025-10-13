@@ -41,19 +41,8 @@ public class Calculator extends JFrame {
         panel.add(text);
 
         JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayout(4, 4, 10, 10));
 
-        for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = createButton(i);
-        }
-        for (int i = 1; i < numbers.length; i++) {
-            panel1.add(numbers[i]);
-        }
-        panel1.add(new JLabel());
-        panel1.add(numbers[0]);
-
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(4, 4, 10, 10));
+        panel1.setLayout(new GridLayout(4, 5, 10, 10));
 
         add.addActionListener(new operators());
         add.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -70,15 +59,51 @@ public class Calculator extends JFrame {
         equals.addActionListener(new operators());
         equals.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        panel2.add(add);
-        panel2.add(minus);
-        panel2.add(multiply);
-        panel2.add(division);
-        panel2.add(equals);
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = createButton(i);
+        }
+
+        for (int i = 1; i < 4; i++) {
+            panel1.add(numbers[i]);
+        }
+
+        panel1.add(add);
+
+
+        for (int i = 4; i < 7; i++) {
+            panel1.add(numbers[i]);
+        }
+
+        panel1.add(minus);
+
+
+        for (int i = 7; i < 10; i++) {
+            panel1.add(numbers[i]);
+        }
+
+        panel1.add(multiply);
+
+        panel1.add(new JLabel());
+        panel1.add(numbers[0]);
+
+        panel1.add(division);
+        panel1.add(equals);
+
+
+
+//        JPanel panel2 = new JPanel();
+//        panel2.setLayout(new GridLayout(4, 4, 10, 10));
+
+
+
+
+
+
+
 
         add(panel, BorderLayout.NORTH);
         add(panel1);
-        add(panel2, BorderLayout.EAST);
+       // add(panel2, BorderLayout.EAST);
 
 
         setVisible(true);
