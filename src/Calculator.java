@@ -113,69 +113,44 @@ public class Calculator extends JFrame {
                     return;
                 }
                 if (e.getActionCommand().equals("=")) {
-                    switch (operator) {
-                        case "+" -> {
-                            history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result + num));
-                            result = num + result;
-                            num = 0;
-                            text.setText(String.valueOf(result));
-                            operator = "0";
-                        }
-                        case "-" -> {
-                            history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result - num));
-                            result = result - num;
-                            num = 0;
-                            text.setText(String.valueOf(result));
-                            operator = "0";
-                        }
-                        case "*" -> {
-                            history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result * num);
-                            result = num * result;
-                            num = 0;
-                            text.setText(String.valueOf(result));
-                            operator = "0";
-                        }
-                        case "/" -> {
-                            try {
-                                history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result / num);
-                                result = result / num;
-                                num = 0;
-                                text.setText(String.valueOf(result));
-                            } catch (ArithmeticException ae) {
-                                history.text.setText(history.text.getText() + "\n" + "cannot divide by zero");
-                            }
-                            operator = "0";
-                        }
-                    }
+                    math();
+                    operator = "0";
                 }
-                switch (operator) {
-                    case "+" -> {
+            math();
+            operator = e.getActionCommand();
+        }
+
+        private void math() {
+            switch (operator) {
+                case "+" -> {
                     history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result + num));
                     result = num + result;
                     num = 0;
-                    text.setText(String.valueOf(result));
-                } case "-" -> {
+                    text.setText(String.valueOf(0));
+                }
+                case "-" -> {
                     history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result - num));
                     result = result - num;
                     num = 0;
-                    text.setText(String.valueOf(result));
-                } case "*" -> {
+                    text.setText(String.valueOf(0));
+                }
+                case "*" -> {
                     history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result * num);
                     result = num * result;
                     num = 0;
-                    text.setText(String.valueOf(result));
-                } case "/" -> {
+                    text.setText(String.valueOf(0));
+                }
+                case "/" -> {
                     try {
                         history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result / num);
                         result = result / num;
                         num = 0;
-                        text.setText(String.valueOf(result));
+                        text.setText(String.valueOf(0));
                     } catch (ArithmeticException ae) {
                         history.text.setText(history.text.getText() + "\n" + "cannot divide by zero");
                     }
                 }
             }
-            operator = e.getActionCommand();
         }
     }
 }
