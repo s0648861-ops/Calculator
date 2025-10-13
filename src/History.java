@@ -17,6 +17,7 @@ public class History extends JFrame {
         setBounds(865, 150, 222, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setIconImage(Toolkit.getDefaultToolkit().getImage(History.class.getResource("/images/icon_h.png")));
+        setResizable(false);
 
         text.setSize(200,10000);
         text.setEditable(false);

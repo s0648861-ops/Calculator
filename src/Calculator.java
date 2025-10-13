@@ -30,6 +30,7 @@ public class Calculator extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(500, 150, 360, 500);
         setIconImage(Toolkit.getDefaultToolkit().getImage(Calculator.class.getResource("/images/icon.png")));
+        setResizable(false);
 
         JPanel panel = new JPanel();
 
