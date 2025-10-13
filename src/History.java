@@ -36,7 +36,7 @@ public class History extends JFrame {
     private class Clear implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            text.setText("History was cleared " + A + " tmes");
+            text.setText("History was cleared " + A + " times");
             A++;
         }
     }
