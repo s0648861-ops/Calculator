@@ -42,7 +42,7 @@ public class Calculator extends JFrame {
 
         JPanel panel1 = new JPanel();
 
-        panel1.setLayout(new GridLayout(5, 5, 10, 10));
+        panel1.setLayout(new GridLayout(5, 4, 10, 10));
 
 
 
@@ -68,7 +68,6 @@ public class Calculator extends JFrame {
             numbers[i] = createButton(i);
         }
 
-        panel1.add(new JLabel());
         panel1.add(new JLabel());
         panel1.add(new JLabel());
         panel1.add(new JLabel());
