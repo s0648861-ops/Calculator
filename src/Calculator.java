@@ -10,13 +10,13 @@ public class Calculator extends JFrame {
 
     public History history = new History();
 
-
     private final JButton[] numbers = new JButton[10];
     private final JButton add = new JButton("+");
     private final JButton minus = new JButton("-");
     private final JButton multiply = new JButton("*");
     private final JButton division = new JButton("/");
     private final JButton equals = new JButton("=");
+    private final JButton backspace = new JButton("<-");
 
     public Calculator() {
 
@@ -42,7 +42,9 @@ public class Calculator extends JFrame {
 
         JPanel panel1 = new JPanel();
 
-        panel1.setLayout(new GridLayout(4, 5, 10, 10));
+        panel1.setLayout(new GridLayout(5, 5, 10, 10));
+
+
 
         add.addActionListener(new operators());
         add.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -59,9 +61,18 @@ public class Calculator extends JFrame {
         equals.addActionListener(new operators());
         equals.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        backspace.addActionListener(new backspace());
+        backspace.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         for (int i = 0; i < numbers.length; i++) {
             numbers[i] = createButton(i);
         }
+
+        panel1.add(new JLabel());
+        panel1.add(new JLabel());
+        panel1.add(new JLabel());
+        panel1.add(new JLabel());
+        panel1.add(backspace);
 
         for (int i = 1; i < 4; i++) {
             panel1.add(numbers[i]);
@@ -89,22 +100,8 @@ public class Calculator extends JFrame {
         panel1.add(division);
         panel1.add(equals);
 
-
-
-//        JPanel panel2 = new JPanel();
-//        panel2.setLayout(new GridLayout(4, 4, 10, 10));
-
-
-
-
-
-
-
-
         add(panel, BorderLayout.NORTH);
         add(panel1);
-       // add(panel2, BorderLayout.EAST);
-
 
         setVisible(true);
     }
@@ -125,6 +122,14 @@ public class Calculator extends JFrame {
             text.setText(String.valueOf(num));
         }
 
+    }
+
+    private class backspace implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            num = Integer.parseInt(String.valueOf(num / 10));
+            text.setText(String.valueOf(num));
+        }
     }
 
     private class operators implements ActionListener {
