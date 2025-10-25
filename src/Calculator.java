@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 
 public class Calculator extends JFrame {
     private final JTextArea text = new JTextArea("...");
-    private int num = 0, result = 0;
+    private int num = 0, decimal = 0;
+    private double result = 0, whole_n = 0;
     private String operator;
+
 
     public History history = new History();
 
@@ -16,7 +18,9 @@ public class Calculator extends JFrame {
     private final JButton multiply = new JButton("*");
     private final JButton division = new JButton("/");
     private final JButton equals = new JButton("=");
+    private final JButton dot = new JButton(".");
     private final JButton backspace = new JButton("<-");
+
 
     public Calculator() {
 
@@ -41,14 +45,14 @@ public class Calculator extends JFrame {
         text.setSize(335, 5);
         panel.add(text);
 
+
         JPanel panel1 = new JPanel();
 
         panel1.setLayout(new GridLayout(5, 4, 10, 10));
 
-
-
         add.addActionListener(new operators());
         add.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        add.setFocusPainted(false);
 
         minus.addActionListener(new operators());
         minus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -61,6 +65,9 @@ public class Calculator extends JFrame {
 
         equals.addActionListener(new operators());
         equals.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        dot.addActionListener(new dot());
+        dot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         backspace.addActionListener(new backspace());
         backspace.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -94,16 +101,21 @@ public class Calculator extends JFrame {
 
         panel1.add(multiply);
 
-        panel1.add(new JLabel());
+        panel1.add(dot);
         panel1.add(numbers[0]);
 
         panel1.add(division);
         panel1.add(equals);
 
+        panel.setBackground(Color.LIGHT_GRAY);
+
+        panel1.setBackground(Color.LIGHT_GRAY);
+
         add(panel, BorderLayout.NORTH);
         add(panel1);
 
         setVisible(true);
+
     }
 
     private JButton createButton(int i) {
@@ -115,11 +127,31 @@ public class Calculator extends JFrame {
 
     }
 
+    private class dot implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (decimal == 1){
+                System.out.println("Im not so stupid ok?");
+                return;
+            }
+            whole_n = num;
+            decimal = 1;
+            text.setText(num + e.getActionCommand() + 0);
+            num = 0;
+        }
+    }
+
     private class numbers implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            num = Integer.parseInt(num + e.getActionCommand());
-            text.setText(String.valueOf(num));
+            if (decimal > 0) {
+                num = Integer.parseInt(((num + e.getActionCommand())));
+                text.setText((int) whole_n + "." + num);
+            }
+            else {
+                num = Integer.parseInt(((num + e.getActionCommand())));
+                text.setText(String.valueOf(num));
+            }
         }
     }
 
@@ -134,50 +166,71 @@ public class Calculator extends JFrame {
     private class operators implements ActionListener {
         @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (decimal == 1){
+                    whole_n = whole_n + ((double)num / 10);
+                }
+                else{
+                    whole_n = num;
+                }
+
                 if (operator == null) {
                     operator = e.getActionCommand();
-                    result = num;
+                    if (result > 0){
+                        math();
+                    }
+                    else{
+                        result = whole_n;
+                    }
+                    whole_n = 0;
                     num = 0;
                     text.setText(String.valueOf(0));
+                    decimal = 0;
                     return;
                 }
                 if (e.getActionCommand().equals("=")) {
                     math();
-                    operator = "0";
+                    operator = null;
+                    return;
                 }
             math();
+            decimal = 0;
             operator = e.getActionCommand();
         }
 
         private void math() {
             switch (operator) {
                 case "+" -> {
-                    history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result + num));
-                    result = num + result;
+                    history.text.setText(history.text.getText() + "\n" + result + operator + whole_n + " = " + (result + whole_n));
+                    result = whole_n + result;
+                    whole_n = 0;
                     num = 0;
                     text.setText(String.valueOf(0));
                 }
                 case "-" -> {
-                    history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + (result - num));
-                    result = result - num;
+                    history.text.setText(history.text.getText() + "\n" + result + operator + whole_n + " = " + (result - whole_n));
+                    result = result - whole_n;
+                    whole_n = 0;
                     num = 0;
                     text.setText(String.valueOf(0));
                 }
                 case "*" -> {
-                    history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result * num);
-                    result = num * result;
+                    history.text.setText(history.text.getText() + "\n" + result + operator + whole_n + " = " + result * whole_n);
+                    result = whole_n * result;
+                    whole_n = 0;
                     num = 0;
                     text.setText(String.valueOf(0));
                 }
                 case "/" -> {
-                    try {
-                        history.text.setText(history.text.getText() + "\n" + result + operator + num + " = " + result / num);
-                        result = result / num;
-                        num = 0;
-                        text.setText(String.valueOf(0));
-                    } catch (ArithmeticException ae) {
+                    if (whole_n == 0) {
                         history.text.setText(history.text.getText() + "\n" + "cannot divide by zero");
+                        return;
                     }
+                    history.text.setText(history.text.getText() + "\n" + result + operator + whole_n + " = " + result / whole_n);
+                    result = result / whole_n;
+                    whole_n = 0;
+                    num = 0;
+                    text.setText(String.valueOf(0));
                 }
             }
         }
