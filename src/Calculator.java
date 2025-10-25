@@ -90,7 +90,7 @@ public class Calculator extends JFrame {
         tan.addActionListener(new trigonometric());
         tan.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        ctg.addActionListener(new operators());
+        ctg.addActionListener(new trigonometric());
         ctg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         add.addActionListener(new operators());
