@@ -169,7 +169,6 @@ public class Calculator extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (decimal == 1){
-                System.out.println("Im not so stupid ok?");
                 return;
             }
             w_num = num;
