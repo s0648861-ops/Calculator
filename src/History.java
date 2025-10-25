@@ -27,8 +27,6 @@ public class History extends JFrame {
         clear.addActionListener(new Clear());
         clear.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        System.out.println(text.getText());
-
         add(text, BorderLayout.CENTER);
         add(clear, BorderLayout.SOUTH);
         setVisible(true);

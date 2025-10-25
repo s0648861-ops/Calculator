@@ -28,10 +28,9 @@ public class Calculator extends JFrame {
     private final JButton equals = new JButton("=");
     private final JButton dot = new JButton(".");
 
-    public Calculator() {
-
+    public Calculator(){
         startup();
-
+        new Images();
     }
 
     private final JPanel panel = new javax.swing.JPanel() {
